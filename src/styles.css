@@ -1,0 +1,576 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Clever Panda design system — based on the "Aura" design language
+ * supplied as the brand reference (index.html).
+ *
+ * Fonts: Matter (UI/body), Season Mix (display/headings), Matter Semi Mono (code).
+ * Colors: neutral canvas surfaces, indigo core brand scale, warm saffron accent.
+ * All color tokens use oklch.
+ */
+
+@font-face {
+  font-family: "Matter";
+  src: url("/fonts/matter.woff2") format("woff2");
+  font-weight: 100 1000;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Season Mix";
+  src: url("/fonts/season-mix.woff2") format("woff2");
+  font-weight: 300 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Matter Semi Mono";
+  src: url("/fonts/matter-semi-mono.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme inline {
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 20px;
+  --radius-2xl: 16px;
+  --radius-3xl: 24px;
+  --radius-full: 9999px;
+
+  /* Typography */
+  --font-sans: "Matter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Season Mix", Georgia, "Times New Roman", serif;
+  --font-mono: "Matter Semi Mono", "SFMono-Regular", Consolas, monospace;
+
+  /* Semantic shadcn tokens mapped to the Aura palette */
+  --color-background: var(--sf);
+  --color-foreground: var(--tx);
+  --color-card: var(--white);
+  --color-card-foreground: var(--tx);
+  --color-popover: var(--white);
+  --color-popover-foreground: var(--tx);
+  --color-primary: var(--btn-grad-end);
+  --color-primary-foreground: var(--white);
+  --color-secondary: var(--sf-2);
+  --color-secondary-foreground: var(--tx);
+  --color-muted: var(--sf-2);
+  --color-muted-foreground: var(--tx-3);
+  --color-accent: var(--sf-2);
+  --color-accent-foreground: var(--tx);
+  --color-destructive: oklch(0.577 0.245 27.325);
+  --color-destructive-foreground: var(--white);
+  --color-border: var(--st);
+  --color-input: var(--st);
+  --color-ring: var(--indigo-400);
+  --color-ring-offset-background: var(--sf);
+
+  /* Aura surface & text tokens */
+  --color-sf: var(--sf);
+  --color-sf-secondary: var(--sf-2);
+  --color-sf-tertiary: var(--sf-3);
+  --color-sf-quaternary: var(--sf-4);
+  --color-tx: var(--tx);
+  --color-tx-secondary: var(--tx-2);
+  --color-tx-tertiary: var(--tx-3);
+  --color-tx-accent: var(--tx-accent);
+  --color-tx-brand: var(--tx-brand);
+  --color-tx-inverse: var(--tx-inverse);
+  --color-st: var(--st);
+  --color-st-secondary: var(--st-2);
+
+  /* Brand scales (override Tailwind defaults with the Aura values) */
+  --color-indigo-50: var(--indigo-50);
+  --color-indigo-100: var(--indigo-100);
+  --color-indigo-200: var(--indigo-200);
+  --color-indigo-300: oklch(0.814 0.0807 265.7);
+  --color-indigo-400: var(--indigo-400);
+  --color-indigo-500: var(--indigo-500);
+  --color-indigo-600: var(--indigo-600);
+  --color-indigo-700: var(--indigo-700);
+  --color-indigo-800: oklch(0.423 0.1874 272.2);
+  --color-indigo-900: var(--indigo-900);
+  --color-indigo-950: oklch(0.252 0.1078 272.5);
+
+  --color-orange-50: var(--orange-50);
+  --color-orange-100: var(--orange-100);
+  --color-orange-200: var(--orange-200);
+  --color-orange-300: oklch(0.837 0.0955 43.4);
+  --color-orange-400: oklch(0.786 0.1216 43.8);
+  --color-orange-500: var(--orange-500);
+  --color-orange-600: var(--orange-600);
+  --color-orange-700: oklch(0.679 0.1692 44.2);
+  --color-orange-800: var(--orange-800);
+  --color-orange-900: oklch(0.522 0.1213 42.9);
+  --color-orange-950: oklch(0.352 0.0683 40.6);
+
+  --color-green-50: var(--green-50);
+  --color-green-100: oklch(0.938 0.0500 129.0);
+  --color-green-200: var(--green-200);
+  --color-green-300: oklch(0.842 0.1127 130.6);
+  --color-green-400: oklch(0.791 0.1423 131.0);
+  --color-green-500: var(--green-500);
+  --color-green-600: var(--green-600);
+  --color-green-700: var(--green-700);
+  --color-green-800: oklch(0.426 0.0934 131.0);
+  --color-green-900: oklch(0.338 0.0704 129.7);
+
+  --color-yellow-50: var(--yellow-50);
+  --color-yellow-100: oklch(0.962 0.0459 87.5);
+  --color-yellow-200: var(--yellow-200);
+  --color-yellow-300: oklch(0.887 0.1161 81.2);
+  --color-yellow-400: oklch(0.851 0.1396 78.1);
+  --color-yellow-500: var(--yellow-500);
+  --color-yellow-600: var(--yellow-600);
+  --color-yellow-700: oklch(0.664 0.1265 75.1);
+  --color-yellow-800: var(--yellow-800);
+  --color-yellow-900: oklch(0.465 0.0824 73.0);
+
+  /* Signature dark button / code surface tones */
+  --color-btn-dark: var(--btn-dark);
+  --color-btn-grad-start: var(--btn-grad-start);
+  --color-btn-grad-end: var(--btn-grad-end);
+  --color-code-bg: var(--code-bg);
+  --color-code-border: var(--code-border);
+  --color-code-tabbar: var(--code-tabbar);
+}
+
+:root {
+  /* Surfaces & canvas */
+  --sf: oklch(0.991 0 89.9);
+  --sf-2: oklch(0.97 0 89.9);
+  --sf-3: oklch(0.955 0 89.9);
+  --sf-4: oklch(0.925 0 89.9);
+  --white: oklch(1 0 89.9);
+  --black: oklch(0.191 0 89.9);
+
+  /* Text */
+  --tx: oklch(0.239 0 89.9);
+  --tx-2: oklch(0.36 0 89.9);
+  --tx-3: oklch(0.51 0 89.9);
+  --tx-accent: oklch(0.634 0.1231 52.3);
+  --tx-brand: oklch(0.256 0.0144 48.1);
+  --tx-inverse: oklch(0.98 0.0045 78.3);
+
+  /* Strokes */
+  --st: oklch(0.925 0 89.9);
+  --st-2: oklch(0.955 0 89.9);
+
+  /* Indigo (core brand) */
+  --indigo-50: oklch(0.99 0.0045 258.3);
+  --indigo-100: oklch(0.951 0.0191 263);
+  --indigo-200: oklch(0.902 0.0384 264.4);
+  --indigo-400: oklch(0.712 0.1128 266);
+  --indigo-500: oklch(0.645 0.1392 268.4);
+  --indigo-600: oklch(0.569 0.1746 271.9);
+  --indigo-700: oklch(0.504 0.2021 272.2);
+  --indigo-900: oklch(0.342 0.1758 272.2);
+
+  /* Orange (warm saffron accent) */
+  --orange-50: oklch(0.991 0.0045 34.3);
+  --orange-100: oklch(0.958 0.0208 43.9);
+  --orange-200: oklch(0.918 0.0414 44.4);
+  --orange-500: oklch(0.734 0.1451 44.1);
+  --orange-600: oklch(0.701 0.1592 43.6);
+  --orange-800: oklch(0.658 0.1781 44.8);
+
+  /* Green / yellow support scales */
+  --green-50: oklch(0.971 0.0183 127.1);
+  --green-200: oklch(0.885 0.0754 130.9);
+  --green-500: oklch(0.741 0.1703 131.4);
+  --green-600: oklch(0.656 0.1512 131.5);
+  --green-700: oklch(0.491 0.1121 131.2);
+  --yellow-50: oklch(0.98 0.0248 89.2);
+  --yellow-200: oklch(0.938 0.0679 85.8);
+  --yellow-500: oklch(0.814 0.161 75.1);
+  --yellow-600: oklch(0.74 0.1437 75.1);
+  --yellow-800: oklch(0.588 0.1092 75.1);
+
+  /* Dark button & code surface tones */
+  --btn-dark: oklch(0.294 0.013 272.9);
+  --btn-grad-start: oklch(0.376 0.0502 276.2);
+  --btn-grad-end: oklch(0.251 0.036 278.8);
+  --code-bg: oklch(0.215 0.0119 277.9);
+  --code-border: oklch(0.313 0.0234 278.1);
+  --code-tabbar: oklch(0.193 0.0122 277.7);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    font-size: 15px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: var(--indigo-100);
+    color: var(--indigo-900);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--indigo-500);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  /* -------------------------------------------------------------
+     Signature pill buttons (ported from the reference design)
+     ------------------------------------------------------------- */
+  .btn-primary {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 24px;
+    min-height: 44px;
+    background: linear-gradient(to bottom, var(--btn-grad-start) 0%, var(--btn-grad-end) 100%);
+    color: var(--white);
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 15.5px;
+    border: none;
+    border-radius: 9999px;
+    cursor: pointer;
+    overflow: hidden;
+    text-decoration: none;
+    box-shadow: 0 2px 8px color-mix(in oklab, var(--btn-grad-end) 15%, transparent);
+    transition: transform 0.15s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.3s ease;
+    --gx: 50%;
+    --gy: 50%;
+  }
+
+  .btn-primary::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 9999px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    background: radial-gradient(
+      circle 80px at var(--gx) var(--gy),
+      oklch(1 0 0 / 22%) 0%,
+      transparent 100%
+    );
+  }
+
+  .btn-primary:hover::before {
+    opacity: 1;
+  }
+
+  .btn-primary:active {
+    transform: scale(0.97);
+  }
+
+  .btn-secondary {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 24px;
+    min-height: 44px;
+    background: linear-gradient(to bottom, var(--white) 0%, var(--sf-3) 100%);
+    box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--btn-grad-end) 14%, transparent);
+    color: var(--btn-grad-end);
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 15.5px;
+    border: none;
+    border-radius: 9999px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.15s ease, background 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .btn-secondary:hover {
+    background: var(--white);
+    box-shadow:
+      inset 0 0 0 1px color-mix(in oklab, var(--btn-grad-end) 24%, transparent),
+      0 2px 6px oklch(0 0 0 / 5%);
+  }
+
+  .btn-secondary:active {
+    transform: scale(0.97);
+  }
+
+  .btn-dark {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px 18px;
+    min-height: 38px;
+    background-color: var(--btn-dark);
+    color: var(--white);
+    font-family: var(--font-sans);
+    font-weight: 500;
+    font-size: 14px;
+    border: none;
+    border-radius: 9999px;
+    cursor: pointer;
+    text-decoration: none;
+    box-shadow:
+      inset 0 1px 0 oklch(1 0 0 / 35%),
+      inset 0 -2px 0 oklch(0 0 0 / 25%);
+    transition: background-color 0.2s, transform 0.15s;
+  }
+
+  .btn-dark:hover {
+    background-color: oklch(0.24 0.012 272.9);
+  }
+
+  .btn-dark:active {
+    transform: scale(0.97);
+  }
+
+  .btn-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px 18px;
+    min-height: 38px;
+    background-color: var(--sf-2);
+    color: var(--tx);
+    font-family: var(--font-sans);
+    font-weight: 500;
+    font-size: 14px;
+    border: none;
+    border-radius: 9999px;
+    cursor: pointer;
+    text-decoration: none;
+    box-shadow:
+      inset 0 2px 0 oklch(0.8 0 0 / 10%),
+      inset 0 -1px 0 oklch(0 0 0 / 5%);
+    transition: background-color 0.2s, transform 0.15s, box-shadow 0.2s;
+  }
+
+  .btn-pill:hover {
+    background-color: var(--white);
+    box-shadow: 0 1px 3px oklch(0 0 0 / 8%);
+  }
+
+  .btn-pill:active {
+    transform: scale(0.97);
+  }
+
+  /* -------------------------------------------------------------
+     Status badges / chips
+     ------------------------------------------------------------- */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-sans);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 5px 12px;
+    border-radius: 9999px;
+  }
+
+  .badge-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 9999px;
+  }
+
+  .badge-indigo {
+    color: var(--indigo-700);
+    background-color: var(--indigo-50);
+    border: 1px solid color-mix(in oklab, var(--indigo-500) 35%, transparent);
+    box-shadow: inset 0 -0.5px 1px var(--indigo-200);
+  }
+
+  .badge-indigo .badge-dot {
+    background: var(--indigo-600);
+  }
+
+  .badge-orange {
+    color: var(--orange-800);
+    background-color: var(--orange-50);
+    border: 1px solid color-mix(in oklab, var(--orange-500) 35%, transparent);
+    box-shadow: inset 0 -0.5px 1px var(--orange-200);
+  }
+
+  .badge-orange .badge-dot {
+    background: var(--orange-600);
+  }
+
+  .badge-green {
+    color: var(--green-700);
+    background-color: var(--green-50);
+    border: 1px solid color-mix(in oklab, var(--green-500) 35%, transparent);
+    box-shadow: inset 0 -0.5px 1px var(--green-200);
+  }
+
+  .badge-green .badge-dot {
+    background: var(--green-600);
+  }
+
+  .badge-yellow {
+    color: var(--yellow-800);
+    background-color: var(--yellow-50);
+    border: 1px solid color-mix(in oklab, var(--yellow-500) 40%, transparent);
+    box-shadow: inset 0 -0.5px 1px var(--yellow-200);
+  }
+
+  .badge-yellow .badge-dot {
+    background: var(--yellow-600);
+  }
+
+  /* -------------------------------------------------------------
+     Section scaffolding
+     ------------------------------------------------------------- */
+  .section-badge {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--indigo-700);
+    background: var(--indigo-50);
+    border: 1px solid var(--indigo-200);
+    padding: 4px 10px;
+    border-radius: 9999px;
+    margin-bottom: 12px;
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(28px, 4vw, 40px);
+    font-weight: 600;
+    color: var(--tx);
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+  }
+
+  .section-desc {
+    font-size: 16px;
+    color: var(--tx-2);
+    margin-top: 8px;
+    max-width: 680px;
+  }
+
+  .card {
+    background: var(--white);
+    border: 1px solid var(--st-2);
+    border-radius: 16px;
+    box-shadow: 0 1px 3px oklch(0 0 0 / 3%);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .card-hover:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px oklch(0 0 0 / 5%);
+  }
+
+  /* -------------------------------------------------------------
+     Hero
+     ------------------------------------------------------------- */
+  .hero-glow {
+    position: absolute;
+    top: 22%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 680px;
+    height: 360px;
+    background: radial-gradient(ellipse, #a5bbfc 0%, #d5e2ff 40%, transparent 70%);
+    opacity: 0.45;
+    filter: blur(90px);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .hero-divider {
+    width: 180px;
+    height: 1px;
+    background: radial-gradient(circle, var(--indigo-500) 0%, transparent 100%);
+  }
+
+  /* -------------------------------------------------------------
+     Sub-cards, interactive tabs, & code previews
+     ------------------------------------------------------------- */
+  .sub-card {
+    background: var(--sf);
+    border: 1px solid var(--st-2);
+    border-radius: 12px;
+  }
+
+  .tab-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    font-size: 13.5px;
+    font-weight: 500;
+    border-radius: 9999px;
+    border: 1px solid transparent;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    background: transparent;
+    color: var(--tx-2);
+  }
+
+  .tab-pill:hover {
+    color: var(--tx);
+    background: var(--sf-2);
+  }
+
+  .tab-pill-active {
+    background: var(--white);
+    color: var(--tx);
+    border-color: var(--st);
+    box-shadow: 0 1px 4px oklch(0 0 0 / 6%);
+    font-weight: 600;
+  }
+
+  /* -------------------------------------------------------------
+     Consistent responsive page container
+     ------------------------------------------------------------- */
+  .page-container {
+    width: 100%;
+    max-width: 1260px;
+    margin-inline: auto;
+    padding-inline: clamp(20px, 4vw, 56px);
+  }
+}
+
